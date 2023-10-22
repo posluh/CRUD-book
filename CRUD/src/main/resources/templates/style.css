@@ -1,0 +1,174 @@
+body {
+    background-color: #51c26f;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+#menu-button {
+    width: 30px;
+    height: 30px;
+    background-color: #0074d9;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: url('Shesternya.png'); /* Путь к изображению */
+    background-size: 50%; /* Изменяет размер изображения для кнопки */
+}
+
+
+#menu-button:hover {
+    background-color: #0056b3;
+}
+
+#login-button {
+    background-color: #0074d9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#login-button:hover {
+    background-color: #0056b3;
+}
+
+#menu {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    padding-top: 60px;
+    z-index: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000;
+}
+
+#menu a:hover {
+    background-color: #0074d9;
+    color: #fff;
+}
+
+/* Добавляем стили для таблицы */
+table {
+    font-family: Arial, sans-serif;
+    width: 80%;
+    border-collapse: collapse;
+    border-radius: 10px; /* Закругленные углы */
+    overflow: hidden; /* Обрезаем по границам таблицы */
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+}
+
+th {
+    background-color: #0074d9;
+    color: #fff;
+}
+
+/* Добавляем стили для названия таблицы */
+h1 {
+    font-family: Arial, sans-serif;
+    text-align: left; /* Выравнивание по левому краю */
+    margin-left: 10%; /* Отступ слева */
+}
+
+tr:first-child {
+    background-color: #0074d9; /* Синий фон */
+    color: #fff; /* Белый текст */
+}
+
+/* Стили для остальных строк таблицы */
+tr:not(:first-child) {
+    background-color: #fff; /* Белый фон */
+    color: #000; /* Черный текст */
+}
+
+/* Стили для ячеек с кнопками */
+.button-cell {
+    background: #51c26f; /* Прозрачный фон */
+    border: none; /* Без обводки */
+    padding: 0; /* Убираем отступы */
+    text-align: center; /* Выравнивание по центру */
+    width: 200px;
+}
+
+/* Стили для кнопок внутри ячейки */
+.custom-button {
+    background-color: #0074d9; /* Синий фон */
+    color: #fff; /* Белый текст */
+    border: none; /* Без обводки */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 5px 10px; /* Отступы */
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    background-color: #0056b3; /* Изменение цвета при наведении */
+}
+
+/* Стили для модального окна */
+.modal {
+    font-family: Arial, sans-serif;
+    display: none; /* Скрываем модальное окно по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный фон */
+    z-index: 3;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Стили для кнопок в модальном окне */
+.modal-content button {
+    background-color: #0074d9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+/* Стили для блоков с полями в модальном окне */
+.input-container {
+    margin: 10px 0; /* Отступ между блоками */
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Название страницы, картинки, цсс -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билиотека:Пользователи</title>
+    <link rel="icon" href="/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+
+<!-- Хедер, кнопка вызова меню, кнопка авторизации -->
+<header>
+    <button id="menu-button"></button>
+    <a href="/">
+        <button id="login-button">Авторизация</button>
+    </a>
+</header>
+
+<!-- Меню страниц сайта -->
+<div id="menu">
+    <a href="/api/user/all">Пользователи</a>
+    <a href="/">Книги</a>
+    <a href="/">Авторы</a>
+    <a href="/">Аренды</a>
+    <a href="/">Отзывы</a>
+</div>
+
+<!-- Модальное окно Создания -->
+<div id="modal" class="modal">
+    <form th:action="@{/api/user/save}" th:object="${user}" method="post" onsubmit="return validateForm(this)">
+    <div class="modal-content">
+        <h2>Добавление пользователя</h2>
+        <p>Заполните поля ниже:</p>
+        <div class="input-container">
+            <label class="label">Введите фамилию</label>
+            <input type="text" placeholder="Фамилия" th:field="*{surname}" required pattern="^[А-Яа-яЁё]{2,30}$" title="Введите от 2 до 30 символов на русском языке">
+        </div>
+        <div class="input-container">
+            <label class="label">Введите имя</label>
+            <input type="text" placeholder="Имя" th:field="*{name}" required pattern="^[А-Яа-яЁё]{2,25}$" title="Введите от 2 до 25 символов на русском языке">
+        </div>
+        <div class="input-container">
+            <label class="label">Введите отчетсво</label>
+            <input type="text" placeholder="Отчество" th:field="*{patronymic}" required pattern="^[А-Яа-яЁё]{2,30}$" title="Введите от 2 до 30 символов на русском языке">
+        </div>
+        <div class="input-container">
+            <label style="display: inline-block; width: 205px; text-align: right; padding-right: 5px; font-size: 16px; margin-bottom: 10px;">Выберите тип роли</label>
+            <select th:field="*{typeRole}" style="width: 169px;">
+                <option value="1">Библиотекарь</option>
+                <option value="2">Читатель</option>
+            </select>
+        </div>
+        <div class="input-container">
+            <label class="label">Введите возраст</label>
+            <input type="text" placeholder="Возраст" th:field="*{age}" required pattern="^[0-9]{1,2}$" title="Введите реальный возраст, от 0 до 99">
+        </div>
+        <div class="input-container">
+            <label class="label">Введите номер телефона</label>
+            <input type="text" placeholder="Номер телефона" th:field="*{numberPhone}" required pattern="^[0-9]{11}$" title="Введите 11 цифр номера телефона, 88008001234">
+        </div>
+        <div class="input-container">
+            <label class="label">Придумайте логин</label>
+            <input type="text" placeholder="Логин" th:field="*{login}">
+            <!--required pattern="^[0-9A-Za-z!@#$*]{5,20}$" title="Возможно использование английских символов, а также римских цифр, в количестве от 5 до 20"-->
+
+            <label class="label">Придумайте пароль</label>
+            <input type="text" placeholder="Пароль" th:field="*{password}">
+            <!--required pattern="^[0-9A-Za-z!@#$*]{5,15}$" title="Возможно использование английских символов, а также римских цифр, в количестве от 5 до 15, использование специальных символов: !@#$*"-->
+
+        </div>
+        <button id="save" type="submit">Добавить</button>
+        <button id="cancel">Отмена</button>
+    </div>
+    </form>
+</div>
+
+<!-- Таблица -->
+<h1>Пользователи</h1>
+<table>
+    <!-- Заголовок -->
+    <tr>
+        <th>ID</th>
+        <th>ФИО</th>
+        <th>Тип роли</th>
+        <th>Возраст</th>
+        <th>Номер телефона</th>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <td class="button-cell">
+            <button class="custom-button" id="open-modal">Добавить</button>
+        </td>
+    </tr>
+    <!-- Заполненые поля -->
+    <tr th:each = "user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name + ' ' + user.surname + ' ' + user.patronymic}"></td>
+        <td th:text="${user.typeRole == 1 ? 'Библиотекарь' : (user.typeRole == 2 ? 'Читатель' : 'Неизвестно')}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.numberPhone}"></td>
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.password}"></td>
+        <td class="button-cell">
+            <a th:href="@{/api/user/edit(id=${user.id})}"><button class="custom-button">Редактировать</button></a>
+            <a th:href="@{/api/user/delete(id=${user.id})}"><button class="custom-button">Удалить</button></a>
+        </td>
+    </tr>
+</table>
+
+<script>
+    // Получаем ссылки на элементы
+    const openModalButton = document.getElementById('open-modal');
+    const modal = document.getElementById('modal');
+    const saveButton = document.getElementById('save');
+    const cancelButton = document.getElementById('cancel');
+
+    // Проверяем, было ли модальное окно открыто ранее
+    const modalWasOpen = localStorage.getItem('modalOpen') === 'true';
+
+    // Если модальное окно было открыто ранее, открываем его сразу
+    if (modalWasOpen) {
+        modal.style.display = 'block';
+    }
+
+    // ***** Открываем модальное окно при нажатии на кнопку "Добавить" *****
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+        localStorage.setItem('modalOpen', 'true');
+    });
+
+    // ***** Закрываем модальное окно при нажатии на кнопку "Отмена" *****
+    cancelButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        localStorage.removeItem('modalOpen');
+        document.querySelector('form').reset();
+    });
+
+    // ***** Чтобы при нажатии на кнопку "Отмена" не создавалась пустая строка в таблице *****
+    document.getElementById("cancel").addEventListener("click", function (e) {
+        e.preventDefault();
+    });
+
+    // ***** Открытие меню *****
+    const menuButton = document.getElementById('menu-button');
+    const menu = document.getElementById('menu');
+    const loginBox = document.getElementById('login-box');
+
+    menuButton.addEventListener('click', () => {
+        if (menu.style.left === '0px') {
+            menu.style.left = '-250px';
+            loginBox.style.marginLeft = '0';
+        } else {
+            menu.style.left = '0';
+            loginBox.style.marginLeft = '250px';
+        }
+    });
+
+    // Закрываем модальное окно при нажатии вне окна
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    window.addEventListener('load', () => {
+        modal.style.display = 'none';
+    });
+
+    function validateForm(form) {
+        const inputs = form.querySelectorAll('input[required]');
+        for (const input of inputs) {
+            if (!input.checkValidity()) {
+                alert(`Пожалуйста, заполните поле "${input.placeholder}" правильно.`);
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

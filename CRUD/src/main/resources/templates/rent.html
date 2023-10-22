@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билиотека:Аренды</title>
+    <link rel="icon" href="ico.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+<header>
+    <button id="menu-button"></button>
+    <a href="auth.html">
+        <button id="login-button">Войти</button>
+    </a>
+</header>
+<div id="menu">
+    <a href="user.html">Пользователи</a>
+    <a href="index.html">Книги</a>
+    <a href="rent.html">Аренды</a>
+    <a href="review.html">Отзывы</a>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h2>Создание аренды</h2>
+        <p>Заполните поля ниже:</p>
+        <div class="input-container">
+            <input type="text" placeholder="ID книги">
+        </div>
+        <div class="input-container">
+            <input type="text" placeholder="ID пользователя">
+        </div>
+        <button id="save">Сохранить</button>
+        <button id="cancel">Отмена</button>
+    </div>
+</div>
+
+<!-- Добавляем таблицу с заголовком "Название Книги" -->
+<h1>Аренды</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>ID Книги</th>
+        <th>ID Пользователя</th>
+        <td class="button-cell">
+            <button class="custom-button" id="open-modal">Добавить</button>
+        </td>
+    </tr>
+    <!-- Здесь можно добавить строки с данными -->
+    <tr>
+        <td>1</td>
+        <td>12</td>
+        <td>3</td>
+        <td class="button-cell">
+            <a th:href=""><button class="custom-button">Редактировать</button></a>
+            <a th:href=""><button class="custom-button">Удалить</button></a>
+        </td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>12</td>
+        <td>3</td>
+        <td class="button-cell">
+            <a th:href=""><button class="custom-button">Редактировать</button></a>
+            <a th:href=""><button class="custom-button">Удалить</button></a>
+        </td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>12</td>
+        <td>3</td>
+        <td class="button-cell">
+            <a th:href=""><button class="custom-button">Редактировать</button></a>
+            <a th:href=""><button class="custom-button">Удалить</button></a>
+        </td>
+    </tr>
+</table>
+
+<script>
+    const menuButton = document.getElementById('menu-button');
+    const menu = document.getElementById('menu');
+    const loginBox = document.getElementById('login-box');
+
+    menuButton.addEventListener('click', () => {
+        if (menu.style.left === '0px') {
+            menu.style.left = '-250px';
+            loginBox.style.marginLeft = '0';
+        } else {
+            menu.style.left = '0';
+            loginBox.style.marginLeft = '250px';
+        }
+    });
+
+    // Получаем ссылки на элементы
+    const openModalButton = document.getElementById('open-modal');
+    const modal = document.getElementById('modal');
+    const saveButton = document.getElementById('save');
+    const cancelButton = document.getElementById('cancel');
+
+    // Открываем модальное окно при нажатии на кнопку "Добавить"
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    // Закрываем модальное окно при нажатии на кнопку "Отмена"
+    cancelButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Закрываем модальное окно при нажатии вне окна
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    window.addEventListener('load', () => {
+        modal.style.display = 'none';
+    });
+
+</script>
+</body>
+</html>

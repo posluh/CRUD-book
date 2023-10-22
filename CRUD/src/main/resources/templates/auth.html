@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="icon" href="ico.ico" type="image/x-icon">
+    <style>
+        body {
+            background-color: #51c26f; /* Белый фон */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #login-box {
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            border-radius: 15px;
+        }
+
+        #login-box h2 {
+            margin-top: 0;
+            font-family: Arial, sans-serif; /* Здесь задаем шрифт */
+        }
+
+
+        #login-box input[type="text"],
+        #login-box input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #login-button {
+            background-color: #0074d9; /* Синий цвет */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #login-button:hover {
+            background-color: #0056b3; /* Изменение цвета при наведении */
+        }
+    </style>
+</head>
+<body>
+<div id="login-box">
+    <h2>Авторизация</h2>
+    <input type="text" placeholder="Логин">
+    <input type="password" placeholder="Пароль">
+    <button id="login-button">Войти</button>
+</div>
+</body>
+</html>

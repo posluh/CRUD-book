@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменение пользователя</title>
+    <link rel="icon" href="/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <style>
+        #login-box {
+            margin: auto;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            border-radius: 15px;
+        }
+        #login-box h2 {
+            margin-top: 0;
+            font-family: Arial, sans-serif; /* Здесь задаем шрифт */
+        }
+        #login-box input[type="text"],
+        #login-box input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-button {
+            background-color: #0074d9; /* Синий цвет */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #0056b3; /* Изменение цвета при наведении */
+        }
+
+        .label {
+            font-size: 12px;
+            text-align: left;
+            vertical-align: bottom;
+            display: inline-block; /* Это важное изменение */
+            width: 100px; /* Измените эту ширину по вашему усмотрению */
+            margin-right: 238px; /* Измените этот отступ справа по вашему усмотрению */
+            margin-bottom: -10px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="login-box">
+    <h2>Добавление пользователя</h2>
+    <p>Заполните поля ниже:</p>
+    <!-- Модальное окно Создания -->
+        <form th:action="@{/api/user/update}" th:object="${user}" method="post" id="user-form"  onsubmit="return validateForm(this)">
+                <input type="hidden" th:field="*{id}">
+                <div class="input-container">
+                    <label class="label">Фамилия</label>
+                    <input type="text" th:field="*{surname}" required pattern="^[А-Яа-яЁё]{2,30}$" title="Введите от 2 до 30 символов на русском языке">
+                </div>
+                <div class="input-container">
+                    <label class="label">Имя</label>
+                    <input type="text" th:field="*{name}" required pattern="^[А-Яа-яЁё]{2,25}$" title="Введите от 2 до 25 символов на русском языке">
+                </div>
+                <div class="input-container">
+                    <label class="label">Отчество</label>
+                    <input type="text" th:field="*{patronymic}" required pattern="^[А-Яа-яЁё]{2,30}$" title="Введите от 2 до 30 символов на русском языке">
+                </div>
+                <div class="input-container">
+                    <label style="font-size: 12px; text-align: left; vertical-align: bottom; display: inline-block; width: 100px; margin-right: 238px; margin-bottom: 2px;">Тип роли</label>
+                    <select th:field="*{typeRole}">
+                        <option value="1">Библиотекарь</option>
+                        <option value="2">Читатель</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label class="label">Возраст</label>
+                    <input type="text" th:field="*{age}" required pattern="^[0-9]{1,2}$" title="Введите реальный возраст, от 0 до 99">
+                </div>
+                <div class="input-container">
+                    <label class="label">Номер телефона</label>
+                    <input type="text" th:field="*{numberPhone}" required pattern="^[0-9]{11}$" title="Введите 11 цифр номера телефона, 88008001234">
+                </div>
+                <div class="input-container">
+                    <label class="label">Логин</label>
+                    <input type="text" th:field="*{login}">
+                </div>
+                <div class="input-container">
+                    <label class="label">Пароль</label>
+                    <input type="text" th:field="*{password}">
+                </div>
+                <button id="save" class="login-button" type="submit">Сохранить</button>
+                <button id="cancel" class="login-button">Отмена</button>
+        </form>
+</div>
+
+<script>
+    const cancelButton = document.getElementById('cancel');
+    const userForm = document.getElementById('user-form');
+
+    cancelButton.addEventListener('click', () => {
+        userForm.reset();
+    });
+</script>
+</body>
+</html>
